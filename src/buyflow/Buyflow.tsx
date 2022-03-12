@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import AgeStep from './AgeStep'
 import EmailStep from './EmailStep'
+import NameStep from './NameStep'
 import SummaryStep from './SummaryStep'
 
 interface BuyflowProps {
@@ -9,11 +10,13 @@ interface BuyflowProps {
 
 export enum ProductIds {
   devIns = 'dev_ins',
+  designIns = 'design_ins',
 }
 
 enum Steps {
   email = 'emai',
   age = 'age',
+  personal = 'personal',
   summary = 'summary',
 }
 
@@ -23,11 +26,17 @@ const PRODUCTS = {
     steps: [Steps.email, Steps.age, Steps.summary],
     defaults: { email: '', age: 0 },
   },
+  [ProductIds.designIns]: {
+    title: 'Design Insurance',
+    steps: [Steps.email, Steps.age, Steps.personal, Steps.summary],
+    defaults: { email: '', age: 0 },
+  },
 }
 
 const STEP_TO_COMPONENT = {
   [Steps.email]: EmailStep,
   [Steps.age]: AgeStep,
+  [Steps.personal]: NameStep,
   [Steps.summary]: SummaryStep,
 }
 
