@@ -29,7 +29,7 @@ const PRODUCTS = {
   [ProductIds.designIns]: {
     title: 'Design Insurance',
     steps: [Steps.email, Steps.age, Steps.personal, Steps.summary],
-    defaults: { email: '', age: 0 },
+    defaults: { email: '', age: 0, firstName: '', lastName: '' },
   },
 }
 
