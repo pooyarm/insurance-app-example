@@ -25,12 +25,20 @@ const PRODUCTS = {
   },
 }
 
+const STEP_TO_COMPONENT = {
+  [Steps.email]: EmailStep,
+  [Steps.age]: AgeStep,
+  [Steps.summary]: SummaryStep,
+}
+
 const Buyflow: React.FC<BuyflowProps> = (props) => {
   const product = PRODUCTS[props.productId]
   const [currentStep, setStep] = useState(product.steps[0])
   const [collectedData, updateData] = useState(product.defaults)
+  const nextStep = product.steps[product.steps.indexOf(currentStep) + 1]
+  const StepComponent = STEP_TO_COMPONENT[currentStep]
 
-  const getStepCallback = (nextStep: Steps) => (field: string, value: any) => {
+  const nextStepCallback = (field: string, value: any) => {
     updateData({ ...collectedData, [field]: value })
     setStep(nextStep)
   }
@@ -39,13 +47,10 @@ const Buyflow: React.FC<BuyflowProps> = (props) => {
     <>
       <h4>Buying {product.title}</h4>
 
-      {(currentStep === Steps.email && <EmailStep cb={getStepCallback(Steps.age)} />) ||
-        (currentStep === Steps.age && (
-          <AgeStep cb={getStepCallback(Steps.summary)} />
-        )) ||
-        (currentStep === Steps.summary && (
-          <SummaryStep collectedData={collectedData} />
-        ))}
+      <StepComponent
+        cb={nextStep && nextStepCallback}
+        collectedData={collectedData}
+      />
     </>
   )
 }
