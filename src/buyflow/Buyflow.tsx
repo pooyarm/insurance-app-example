@@ -41,7 +41,9 @@ const STEP_TO_COMPONENT = {
 }
 
 const Buyflow: React.FC<BuyflowProps> = (props) => {
-  const product = PRODUCTS[props.productId]
+  const { productId } = props
+
+  const product = PRODUCTS[productId]
   const [currentStep, setStep] = useState(product.steps[0])
   const [collectedData, updateData] = useState(product.defaults)
   const nextStep = product.steps[product.steps.indexOf(currentStep) + 1]
@@ -59,6 +61,7 @@ const Buyflow: React.FC<BuyflowProps> = (props) => {
       <StepComponent
         cb={nextStep && nextStepCallback}
         collectedData={collectedData}
+        productId={productId}
       />
     </>
   )
