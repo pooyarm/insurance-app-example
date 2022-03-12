@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 
 interface NameStepProps {
-  cb: (field: string, value: number) => void
+  cb: (data: object) => void
 }
 
 const NameStep: React.FC<NameStepProps> = (props) => {
+  const { cb } = props
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
 
@@ -27,6 +28,8 @@ const NameStep: React.FC<NameStepProps> = (props) => {
           value={lastName}
         />
       </div>
+
+      <button onClick={() => cb({ firstName, lastName })}>Next</button>
     </>
   )
 }
