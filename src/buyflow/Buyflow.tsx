@@ -16,7 +16,7 @@ export enum ProductIds {
 enum Steps {
   email = 'emai',
   age = 'age',
-  personal = 'personal',
+  name = 'name',
   summary = 'summary',
 }
 
@@ -28,7 +28,7 @@ const PRODUCTS = {
   },
   [ProductIds.designIns]: {
     title: 'Design Insurance',
-    steps: [Steps.email, Steps.age, Steps.personal, Steps.summary],
+    steps: [Steps.email, Steps.age, Steps.name, Steps.summary],
     defaults: { email: '', age: 0, firstName: '', lastName: '' },
   },
 }
@@ -36,7 +36,7 @@ const PRODUCTS = {
 const STEP_TO_COMPONENT = {
   [Steps.email]: EmailStep,
   [Steps.age]: AgeStep,
-  [Steps.personal]: NameStep,
+  [Steps.name]: NameStep,
   [Steps.summary]: SummaryStep,
 }
 
