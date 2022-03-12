@@ -47,8 +47,8 @@ const Buyflow: React.FC<BuyflowProps> = (props) => {
   const nextStep = product.steps[product.steps.indexOf(currentStep) + 1]
   const StepComponent = STEP_TO_COMPONENT[currentStep]
 
-  const nextStepCallback = (field: string, value: any) => {
-    updateData({ ...collectedData, [field]: value })
+  const nextStepCallback = (newData: object) => {
+    updateData({ ...collectedData, ...newData })
     setStep(nextStep)
   }
 
