@@ -11,28 +11,39 @@ export enum ProductIds {
   devIns = 'dev_ins',
 }
 
-const PRODUCT_IDS_TO_NAMES = {
-  [ProductIds.devIns]: 'Developer Insurance',
+enum Steps {
+  email = 'emai',
+  age = 'age',
+  summary = 'summary',
+}
+
+const PRODUCTS = {
+  [ProductIds.devIns]: {
+    title: 'Developer Insurance',
+    steps: [Steps.email, Steps.age, Steps.summary],
+    defaults: { email: '', age: 0 },
+  },
 }
 
 const Buyflow: React.FC<BuyflowProps> = (props) => {
-  const [currentStep, setStep] = useState('email')
-  const [collectedData, updateData] = useState({
-    email: '',
-    age: 0,
-  })
-  const getStepCallback = (nextStep: string) => (field: string, value: any) => {
+  const product = PRODUCTS[props.productId]
+  const [currentStep, setStep] = useState(product.steps[0])
+  const [collectedData, updateData] = useState(product.defaults)
+
+  const getStepCallback = (nextStep: Steps) => (field: string, value: any) => {
     updateData({ ...collectedData, [field]: value })
     setStep(nextStep)
   }
+
   return (
     <>
-      <h4>Buying {PRODUCT_IDS_TO_NAMES[props.productId]}</h4>
-      {(currentStep === 'email' && <EmailStep cb={getStepCallback('age')} />) ||
-        (currentStep === 'age' && (
-          <AgeStep cb={getStepCallback('summary')} />
+      <h4>Buying {product.title}</h4>
+
+      {(currentStep === Steps.email && <EmailStep cb={getStepCallback(Steps.age)} />) ||
+        (currentStep === Steps.age && (
+          <AgeStep cb={getStepCallback(Steps.summary)} />
         )) ||
-        (currentStep === 'summary' && (
+        (currentStep === Steps.summary && (
           <SummaryStep collectedData={collectedData} />
         ))}
     </>
