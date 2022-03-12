@@ -21,6 +21,8 @@ const App = () => {
           <Route path="/">
             <p>Welcome to Getsafe's Developer Insurance</p>
             <Link to="/buy/insurance_dev">Get started!</Link>
+            <p>Welcome to Getsafe's Designer Insurance</p>
+            <Link to="/buy/insurance_des">Get started!</Link>
           </Route>
         </Switch>
       </div>
