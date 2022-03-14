@@ -6,11 +6,27 @@ interface NameStepProps {
 
 const NameStep: React.FC<NameStepProps> = (props) => {
   const { cb } = props
+  const [error, setError] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
 
+  const submit = () => {
+    setError('')
+
+    if (!firstName.trim() || !lastName.trim()) {
+      setError('Please fill all fields.')
+      return
+    }
+
+    cb({ firstName, lastName })
+  }
+
   return (
     <>
+      {error && (
+        <p>{error}</p>
+      )}
+
       <div>
         <label>First name</label>
         <input
@@ -29,7 +45,7 @@ const NameStep: React.FC<NameStepProps> = (props) => {
         />
       </div>
 
-      <button onClick={() => cb({ firstName, lastName })}>Next</button>
+      <button onClick={submit}>Next</button>
     </>
   )
 }
